@@ -14,6 +14,7 @@ test: build
 		--name test-$(IMAGE_NAME) \
 		-d --rm $(IMAGE_NAME)
 	echo "Running tests"
+	sleep 1
 	$(foreach var,$(TESTS),if [ `curl -o /dev/null -s -w "%{http_code}\n" "localhost:8000$(var)"` -eq 200 ]; then echo ""localhost:8000$(var)" -- ok"; else echo ""localhost:8000$(var)" -- Failed"; fi;)	
 	echo "Stopping container.."
 	docker stop test-$(IMAGE_NAME) 
