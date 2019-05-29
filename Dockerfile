@@ -4,9 +4,14 @@ ENV GO111MODULE=on
 
 RUN  apk update --no-cache && apk add git
 
-COPY ./ /app
-
 WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY ./ /app
 
 RUN go build -o golang-test  .
 
